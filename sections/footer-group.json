@@ -11,6 +11,13 @@
   "type": "footer",
   "name": "t:general.footer",
   "sections": {
+    "email_signup_yBemc8": {
+      "type": "email-signup",
+      "name": "Email Signup",
+      "settings": {
+        "title": "Subscribe to our emails"
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -20,6 +27,7 @@
     }
   },
   "order": [
+    "email_signup_yBemc8",
     "footer"
   ]
 }
