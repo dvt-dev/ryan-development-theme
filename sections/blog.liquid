@@ -1,0 +1,128 @@
+{% comment %}
+  This section is used in the blog template to render the blog page listing all
+  articles within a blog.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/blog
+{% endcomment %}
+
+<h1 class="blog-title">{{ blog.title }}</h1>
+
+{% paginate blog.articles by 5 %}
+  <div class="articles-list">
+    {% for article in blog.articles %}
+      <div class="blog-article" >
+        {% if article.image %}
+          {{ article.image | image_url: width: 1000 | image_tag: class: 'blog-article__image' }}
+        {% endif %}
+        <div class="blog-article__content">
+          <h2>
+            {{ article.title | link_to: article.url }}
+          </h2>
+          {% assign date = article.published_at | time_tag: format: 'date' %}
+          <p class="blog-article__date-author">{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
+          {% if article.excerpt %}
+            <p class="blog-article__excerpt">{{ article.excerpt | strip_html}}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    {{- paginate | default_pagination -}}
+  {%- endif -%}
+{% endpaginate %}
+
+{% stylesheet %}
+  .blog-title {
+    font-size: 2rem;
+    font-weight: 200;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .articles-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .blog-article {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 320px;
+  }
+
+  .blog-article__content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .blog-article h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    max-height: 2.4em;
+    line-height: 1.2em;
+    word-break: break-word;
+    line-clamp: 2;
+  }
+
+  .blog-article h2 a {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .blog-article h2 a:hover {
+    text-decoration: underline;
+  }
+
+  .blog-article img {
+    width: 100%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    max-height: 180px;
+    min-height: 250px;
+  }
+
+  .blog-article__date-author {
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  .blog-article__excerpt {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  /* @media (max-width: 1200px) {
+    .articles-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  } */
+  @media (max-width: 700px) {
+    .articles-list {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+
+{% schema %}
+{
+  "name": "t:general.blog",
+  "settings": []
+}
+{% endschema %}

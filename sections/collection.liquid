@@ -1,0 +1,99 @@
+{% comment %}
+  This section is used in the collection template to render collection page
+  listing all products within a collection.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+{% endcomment %}
+
+<h1 class="collection-products__title">{{ collection.title }}</h1>
+
+<div class="collection-products">
+
+    {% for product in collection.products %}
+      <div class="collection-product">
+        {% if product.featured_image %}
+          {% render 'image',
+            class: 'collection-product__image',
+            image: product.featured_image,
+            url: product.url,
+            width: 400,
+            height: 400,
+            crop: 'center'
+          %}
+        {% endif %}
+        <div class="collection-product__content">
+          <p>{{ product.title | escape | link_to: product.url }}</p>
+          <p>{{ product.price | money }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+
+</div>
+
+{% stylesheet %}
+  .collection-products__title {
+    font-size: 2rem;
+    font-weight: 200;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .collection-products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+    /* background: #f9f9f9; */
+    border-radius: 8px;
+    text-align: center;
+    min-height: 300px;
+    position: relative;
+  }
+
+  .collection-product {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+  }
+ 
+  @media (max-width: 700px) {
+    .collection-products {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .collection-product__image img {
+    width: 150px;
+    margin-bottom: 10px;
+  }
+
+  .collection-product__content p {
+    margin: 6px 0;
+    font-size: 0.8rem;
+    color: #525252;
+    font-weight: 200;
+    height: 28px;
+  }
+
+  .collection-product__content a {
+    color: #525252;
+    text-decoration: none;
+    font-weight: 200;
+    font-size: 0.8rem;
+  }
+  .collection-product__content a:hover {
+    text-decoration: underline;
+  }
+
+  
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.collection",
+  "settings": []
+}
+{% endschema %}

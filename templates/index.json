@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "banner",
+      "settings": {}
+    },
+    "main": {
+      "type": "home-page",
+      "settings": {}
+    },
+    "feature_products_VeH8zA": {
+      "type": "feature-products",
+      "name": "Feature Products",
+      "settings": {
+        "title": "Featured Products"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "feature_products_VeH8zA"
+  ]
+}

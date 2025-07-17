@@ -1,0 +1,117 @@
+
+
+{% assign feature_collection = collections['feature-products'] %}
+{% if feature_collection %}
+  <div class="feature-products">
+    <h2 class="feature-products__title">{{ section.settings.title }}</h2>
+    <div class="feature-products-list">
+      {% for product in feature_collection.products limit:4 %}
+        <div class="feature-product">
+          <div class="product-images">
+            {% for image in product.images limit:1 %}
+              {% render 'image', class: 'product-image', image: image %}
+            {% endfor %}
+          </div>
+          <div class="feature-product__info">
+            <h3 class="feature-product__title">{{ product.title | link_to: product.url }}</h3>
+            <p class="feature-product__price">{{ product.price | money }}</p>
+            {% comment %} <p>{{ product.description }}</p> {% endcomment %}
+          </div>         
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <p>No feature products find .</p>
+{% endif %}
+
+
+{% stylesheet %}
+    .feature-products {
+      margin: 40px 0;
+      padding: 32px 0;
+      background: #f9f9f9;
+      border-radius: 8px;
+      text-align: center;
+  }
+
+    .feature-products__title {
+      font-size: 2rem;
+      font-weight: 200;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .feature-products-list {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .feature-product {
+        background: #fff;
+        border-radius: 8px;
+        padding: 24px;
+        width: 250px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image img {
+        width: 180px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .feature-product__title a {
+        margin: 8px 0;
+        font-size: 0.8rem;
+        color: #525252;
+        font-weight: 200;
+        height: 32px;
+        text-decoration: none;
+    }
+
+    .product-form {
+        margin-top: 12px;
+    }
+
+    .product-form button {
+        padding: 8px 20px;
+        background: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        border: none;
+        font-weight: bold;
+    }
+
+    .product-form button:hover {
+        background: #0056b3;
+    }
+{% endstylesheet %}
+
+{% schema %}
+{
+    "name": "Feature Products",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+      },
+      
+    ],
+    "presets": [
+        {
+        "name": "Feature Products",
+        "category": "Homepage",
+        "settings": {
+          "title": "Featured Products"
+          }
+        }
+    ]
+}
+{% endschema %}
