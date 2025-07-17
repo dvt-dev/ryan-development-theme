@@ -1,0 +1,66 @@
+<div class="email-signup">
+  <h2 class="email-signup__title">{{ section.settings.title }}</h2>
+  <form method="post" action="/contact#newsletter" class="email-signup__form">
+    <input type="email" name="contact[email]" placeholder="Email" required class="email-signup__input">
+    <button type="submit" class="email-signup__button">Submit</button>
+  </form>
+</div>
+
+{% stylesheet %}
+.email-signup {
+  background: #f9f9f9;
+  padding: 32px 0;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 2rem;
+}
+.email-signup__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 200;
+}
+.email-signup__form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.email-signup__input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  border-radius: initial;
+}
+.email-signup__button {
+  padding: 10px 24px;
+  background: #121212;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.email-signup__button:hover {
+  background: #0056b3;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Email Signup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề",
+      "default": "Subscribe to our emails"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Email Signup",
+      "category": "Footer"
+    }
+  ]
+}
+{% endschema %}
